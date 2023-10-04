@@ -1,7 +1,4 @@
-resource "helm_release" "crossplane" {
-  name             = "crossplane"
-  repository       = "https://charts.crossplane.io/stable/"
-  chart            = "crossplane-stable/crossplane"
-  namespace        = "crossplane-system"
-  create_namespace = true
+resource "kubectl_manifest" "argocd" {
+    yaml_body = file("${path.module}/crossplane_install.yaml")
+    depends_on = [data.http.wait_for_cluster]
 }
