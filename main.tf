@@ -3,3 +3,8 @@ module "eks-crossplane-argocd" {
   env       = var.env
   accountId = var.accountId
 }
+
+module "aws-auth-cm" {
+  source = "./aws-auth-cm"
+  accountId = var.accountId
+}
