@@ -8,3 +8,7 @@ module "aws-auth-cm" {
   source = "./aws-auth-cm"
   accountId = var.accountId
 }
+
+module "s3 {
+  source = "./s3"
+}
