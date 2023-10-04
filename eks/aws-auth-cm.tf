@@ -1,10 +1,10 @@
 
 data "aws_eks_cluster" "this" {
-  name = "eks-cluster-crossplane-${var.env}"
+  name = module.eks.cluster_name
 }
 
 data "aws_eks_cluster_auth" "this" {
-  name = "eks-cluster-crossplane-${var.env}"
+  name = module.eks.cluster_name
 }
 
 data "http" "wait_for_cluster" {
