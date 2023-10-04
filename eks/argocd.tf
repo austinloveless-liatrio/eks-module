@@ -5,6 +5,5 @@ resource "helm_release" "argocd_helm" {
   namespace        = "argocd"
   create_namespace = true
   version          = "3.35.4"
-  values           = [file("${path.module}/argocd.yaml")]
   verify           = false
 }
