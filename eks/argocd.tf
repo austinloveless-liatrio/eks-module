@@ -1,4 +1,6 @@
-resource "kubectl_manifest" "argocd" {
-    yaml_body = file("${path.module}/argocd_install.yaml")
-    depends_on = [data.http.wait_for_cluster]
+resource "helm_release" "argocd" {
+  name             = "argocd"
+  repository       = "https://github.com/argoproj/argo-cd/archive/refs/tags/v2.8.4.tar.gz"
+  namespace        = "argocd"
+  create_namespace = true
 }
