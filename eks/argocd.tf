@@ -1,8 +1,4 @@
-resource "helm_release" "argocd" {
-  name             = "argocd"
-  repository       = "https://argoproj.github.io/argo-helm"
-  chart            = "argo-cd"
-  namespace        = "argocd"
-  create_namespace = true
-  version          = "3.35.4"
+resource "kubectl_manifest" "argocd" {
+    yaml_body = file("https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml")
+    depends_on = [data.http.wait_for_cluster]
 }

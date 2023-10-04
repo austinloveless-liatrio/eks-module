@@ -4,4 +4,5 @@ resource "helm_release" "crossplane" {
   chart            = "crossplane"
   namespace        = "crossplane-system"
   create_namespace = true
+
 }

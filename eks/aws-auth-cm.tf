@@ -17,13 +17,6 @@ data "http" "wait_for_cluster" {
   ]
 }
 
-provider "kubectl" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.this.token
-  load_config_file       = false
-}
-
 locals {
   aws_user_role = "arn:aws:iam::${var.accountId}:role/Administrator"
   aws_terraform_role = "arn:aws:iam::${var.accountId}:role/provider-aws"
