@@ -1,3 +1,0 @@
-variable "accountId" {
-  type = string
-}

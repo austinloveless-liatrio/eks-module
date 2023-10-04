@@ -1,23 +1,24 @@
+
 data "aws_eks_cluster" "this" {
-  name = module.eks-crossplane-argocd.cluster_id
+  name = module.eks.cluster_id
 }
 
 data "aws_eks_cluster_auth" "this" {
-  name = module.eks-crossplane-argocd.cluster_id
+  name = module.eks.cluster_id
 }
 
 data "http" "wait_for_cluster" {
-  url            = format("%s/healthz", module.eks-crossplane-argocd.cluster_endpoint)
+  url            = format("%s/healthz", module.eks.cluster_endpoint)
   ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
   timeout        = 1200
 
   depends_on = [
-    module.eks-crossplane-argocd
+    module.eks
   ]
 }
 
 provider "kubectl" {
-  host                   = module.eks-crossplane-argocd.cluster_endpoint
+  host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
   token                  = data.aws_eks_cluster_auth.this.token
   load_config_file       = false
@@ -28,7 +29,7 @@ locals {
   aws_terraform_role = "arn:aws:iam::${var.accountId}:role/provider-aws"
 
   aws_auth_configmap_yaml = <<-EOT
-  ${chomp(module.eks-crossplane-argocd.aws_auth_configmap_yaml)}
+  ${chomp(module.eks.aws_auth_configmap_yaml)}
       - rolearn: ${local.aws_user_role}
         username: "provider-aws"
         groups:
