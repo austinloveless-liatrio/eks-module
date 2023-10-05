@@ -9,5 +9,7 @@ resource "helm_release" "crossplane" {
   values = [
     "${file("${path.module}/values.yaml")}"
   ]
-
+  depends_on = [
+    module.eks
+  ]
 }
