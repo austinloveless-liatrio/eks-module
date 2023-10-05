@@ -5,4 +5,9 @@ resource "helm_release" "crossplane" {
   verify           = false
   namespace        = "crossplane-system"
   create_namespace = true
+
+  values = [
+    "${file("${path.module}/values.yaml")}"
+  ]
+
 }
