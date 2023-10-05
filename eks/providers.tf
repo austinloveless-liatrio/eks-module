@@ -12,6 +12,10 @@ terraform {
             source  = "hashicorp/helm"
             version = "= 2.5.1"
         }
+        null = {
+          source = "hashicorp/null"
+          version = "3.2.1"
+        }
     }
 }
 provider "helm" {
@@ -33,3 +37,5 @@ provider "kubectl" {
   token                  = data.aws_eks_cluster_auth.this.token
   load_config_file       = false
 }
+
+provider "null" {}
