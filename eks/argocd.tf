@@ -1,7 +1,6 @@
 resource "helm_release" "argocd" {
   name             = "argocd"
-  chart            = "argo-cd"
+  chart            = "https://github.com/argoproj/argo-helm/archive/refs/tags/argo-cd-5.46.7.tar.gz"
   namespace        = "argocd"
   create_namespace = true
-  version          = "3.35.4"
 }
