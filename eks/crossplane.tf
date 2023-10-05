@@ -1,6 +1,5 @@
-# resource "helm_release" "crossplane_helm" {
-#   name             = "crossplane-system"
-#   chart            = "crossplane-stable"
-#   version          = "1.13.2"
-#   verify           = false
-# }
+resource "helm_release" "crossplane_helm" {
+  name             = "crossplane-system"
+  chart            = "https://github.com/crossplane/crossplane/tree/master/cluster/charts/crossplane"
+  verify           = false
+}
