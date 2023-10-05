@@ -1,4 +1,9 @@
 terraform {
+    backend "kubernetes" {
+      secret_suffix     = "providerconfig-tf-aws"
+      namespace         = "crossplane-system"
+      in_cluster_config = true
+    }
     required_providers {
         kubectl = {
             source = "gavinbunney/kubectl"
@@ -16,9 +21,14 @@ terraform {
           source = "hashicorp/null"
           version = "3.2.1"
         }
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 4.0"
+        }
     }
 }
 provider "helm" {
+  repository_cache = "/tf"
   kubernetes {
     host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
@@ -39,3 +49,7 @@ provider "kubectl" {
 }
 
 provider "null" {}
+
+provider "aws" {
+  region  = "us-east-1"
+}
